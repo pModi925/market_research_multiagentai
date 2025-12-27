@@ -1,0 +1,38 @@
+# --- Python Essentials ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual Environments ---
+# Based on your image, your venv is named .venv
+.venv/
+venv/
+env/
+
+# --- Environment Variables & Secrets (CRITICAL) ---
+# Never commit .env files as they likely contain API keys
+.env
+.env.*
+!.env.example
+
+# --- Distribution / Build ---
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# --- Tooling & IDEs ---
+.vscode/
+.idea/
+.DS_Store
+
+# --- Project Specifics ---
+# If 'report/' contains only generated outputs you don't want to save, uncomment below:
+# report/*.md
+# !report/.gitkeep
+
+# If 'knowledge/' contains large datasets or PDFs meant for local processing only:
+# knowledge/
+
+# --- Logs ---
+*.log
