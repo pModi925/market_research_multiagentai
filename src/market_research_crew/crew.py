@@ -1,9 +1,10 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import Agent, Crew, Process, Task,LLM
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
-from crewai_tools import SerperDevTool , ScrapeWebsiteTool
+from crewai_tools import SerperDevTool,ScrapeWebsiteTool
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
@@ -14,6 +15,12 @@ web_scraping_tool = ScrapeWebsiteTool()
 
 
 toolkit = [web_search_tool, web_scraping_tool]
+
+#define the LLM
+llm = LLM(
+    model="gemini/gemini-3-flash-preview",
+    api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 
 #define the crew class
@@ -34,31 +41,36 @@ class MarketResearchCrew():
     def market_research_Specialist(self) -> Agent:
         return Agent(
             config=self.agents_config["market_research_Specialist"],
-            tools=toolkit       
+            tools=toolkit,  
+            llm=llm  
         )
     @agent
     def competitive_intelligence_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config["competitive_intelligence_analyst"],
-            tools=toolkit
+            tools=toolkit,
+            llm=llm
         )
     @agent
     def customer_insights_researcher(self) -> Agent:
         return Agent(
             config=self.agents_config["customer_insights_researcher"],          
-            tools=toolkit
+            tools=toolkit,
+            llm=llm
         )
     @agent
     def product_strategy_advisor(self) -> Agent:
         return Agent(
             config=self.agents_config["product_strategy_advisor"],
-            tools=toolkit           
+            tools=toolkit,
+            llm=llm           
         )
     @agent
     def business_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config["business_analyst"],  
-            tools=toolkit
+            tools=toolkit,
+            llm=llm
         )
         
         
