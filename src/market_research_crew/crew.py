@@ -43,35 +43,40 @@ class MarketResearchCrew():
         return Agent(
             config=self.agents_config["market_research_Specialist"],
             tools=toolkit,  
-            llm=llm  
+            llm=llm,
+            verbose=True
         )
     @agent
     def competitive_intelligence_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config["competitive_intelligence_analyst"],
             tools=toolkit,
-            llm=llm
+            llm=llm,
+            verbose=True
         )
     @agent
     def customer_insights_researcher(self) -> Agent:
         return Agent(
             config=self.agents_config["customer_insights_researcher"],          
             tools=toolkit,
-            llm=llm
+            llm=llm,
+            verbose=True    
         )
     @agent
     def product_strategy_advisor(self) -> Agent:
         return Agent(
             config=self.agents_config["product_strategy_advisor"],
             tools=toolkit,
-            llm=llm           
+            llm=llm,         
+            verbose=True
         )
     @agent
     def business_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config["business_analyst"],  
             tools=toolkit,
-            llm=llm
+            llm=llm,
+            verbose=True
         )
         
         
