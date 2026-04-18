@@ -18,7 +18,7 @@ toolkit = [web_search_tool, web_scraping_tool]
 
 #define the LLM
 llm = LLM(
-    model="gemini-3.1-flash-lite-preview",
+    model="gemini-2.5-flash-lite",
     api_key=os.getenv("GOOGLE_API_KEY"),
     provider="google"
 )
