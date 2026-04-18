@@ -18,7 +18,7 @@ toolkit = [web_search_tool, web_scraping_tool]
 
 #define the LLM
 llm = LLM(
-    model="gemini-2.5-flash-lite",
+    model="gemini-3-flash-preview",
     api_key=os.getenv("GOOGLE_API_KEY"),
     provider="google"
 )
@@ -51,32 +51,32 @@ class MarketResearchCrew():
         return Agent(
             config=self.agents_config["competitive_intelligence_analyst"],
             tools=toolkit,
-            llm=llm,
-            verbose=True
+            verbose=True,
+            llm=llm
         )
     @agent
     def customer_insights_researcher(self) -> Agent:
         return Agent(
             config=self.agents_config["customer_insights_researcher"],          
             tools=toolkit,
-            llm=llm,
-            verbose=True    
+            verbose=True,    
+            llm=llm
         )
     @agent
     def product_strategy_advisor(self) -> Agent:
         return Agent(
             config=self.agents_config["product_strategy_advisor"],
             tools=toolkit,
-            llm=llm,         
-            verbose=True
+            verbose=True,
+            llm=llm        
         )
     @agent
     def business_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config["business_analyst"],  
             tools=toolkit,
-            llm=llm,
-            verbose=True
+            verbose=True,
+            llm=llm
         )
         
         
