@@ -9,6 +9,9 @@ __pycache__/
 venv/
 env/
 
+#output files
+report/
+
 # --- Environment Variables & Secrets (CRITICAL) ---
 # Never commit .env files as they likely contain API keys
 .env
