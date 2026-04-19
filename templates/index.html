@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="AI-powered multi-agent market research report generator. Get comprehensive business analysis from 5 specialized AI agents.">
+    <title>AI Market Research Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <!-- Background decoration -->
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+
+    <div class="app-container">
+        <!-- Navigation / Header -->
+        <header class="app-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+                <span class="logo-text">MarketAI</span>
+            </div>
+            <nav class="nav-links">
+                <button class="nav-btn active" id="navHome" onclick="showSection('input')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Home
+                </button>
+                <button class="nav-btn" id="navHistory" onclick="showSection('history')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    History
+                </button>
+            </nav>
+        </header>
+
+        <!-- ==================== INPUT SECTION ==================== -->
+        <section class="section" id="inputSection">
+            <div class="hero">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Powered by 5 AI Agents
+                </div>
+                <h1 class="hero-title">AI Market Research<br><span class="gradient-text">Generator</span></h1>
+                <p class="hero-subtitle">Transform any product idea into a comprehensive market research report with
+                    competitive analysis, customer insights, and business strategy — powered by a multi-agent AI
+                    pipeline.</p>
+            </div>
+
+            <div class="input-card">
+                <div class="card-inner">
+                    <label for="productIdea" class="input-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20h9"></path>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                        Describe your product idea
+                    </label>
+                    <textarea id="productIdea" class="idea-input"
+                        placeholder="e.g., An AI-powered event management platform that simplifies event creation, registration, and payments in one place..."
+                        rows="5"></textarea>
+                    <div class="input-footer">
+                        <span class="char-count" id="charCount">0 characters</span>
+                        <button class="btn-primary" id="generateBtn" onclick="startGeneration()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent pipeline cards -->
+            <div class="agents-showcase">
+                <h2 class="section-title">The AI Pipeline</h2>
+                <div class="agents-grid">
+                    <div class="agent-card" style="--delay: 0">
+                        <div class="agent-number">01</div>
+                        <div class="agent-icon agent-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                        </div>
+                        <h3>Market Research Specialist</h3>
+                        <p>Analyzes market size, growth trends, and technology adoption patterns</p>
+                    </div>
+                    <div class="agent-card" style="--delay: 1">
+                        <div class="agent-number">02</div>
+                        <div class="agent-icon agent-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                        <h3>Competitive Intelligence Analyst</h3>
+                        <p>Maps the competitive landscape and identifies strategic gaps</p>
+                    </div>
+                    <div class="agent-card" style="--delay: 2">
+                        <div class="agent-number">03</div>
+                        <div class="agent-icon agent-icon-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3>Customer Insights Researcher</h3>
+                        <p>Develops personas, pain points, and acquisition strategies</p>
+                    </div>
+                    <div class="agent-card" style="--delay: 3">
+                        <div class="agent-number">04</div>
+                        <div class="agent-icon agent-icon-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <h3>Product Strategy Advisor</h3>
+                        <p>Designs MVP features, differentiation, and product roadmap</p>
+                    </div>
+                    <div class="agent-card" style="--delay: 4">
+                        <div class="agent-number">05</div>
+                        <div class="agent-icon agent-icon-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Business Analyst & Synthesizer</h3>
+                        <p>Creates the final investment memo with pricing and projections</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== LOADING SECTION ==================== -->
+        <section class="section hidden" id="loadingSection">
+            <div class="loading-container">
+                <div class="loading-visual">
+                    <div class="loading-ring">
+                        <div class="ring-segment ring-1"></div>
+                        <div class="ring-segment ring-2"></div>
+                        <div class="ring-segment ring-3"></div>
+                    </div>
+                    <div class="loading-core">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <h2 class="loading-title">Running AI Agents</h2>
+                <p class="loading-subtitle" id="loadingStatus">Initializing the multi-agent pipeline...</p>
+
+                <div class="product-idea-preview" id="loadingIdeaPreview"></div>
+
+                <!-- Agent progress -->
+                <div class="agent-progress">
+                    <div class="progress-step" id="step1">
+                        <div class="step-indicator">
+                            <div class="step-dot"></div>
+                        </div>
+                        <div class="step-info">
+                            <span class="step-name">Market Research Specialist</span>
+                            <span class="step-status">Waiting...</span>
+                        </div>
+                    </div>
+                    <div class="progress-step" id="step2">
+                        <div class="step-indicator">
+                            <div class="step-dot"></div>
+                        </div>
+                        <div class="step-info">
+                            <span class="step-name">Competitive Intelligence Analyst</span>
+                            <span class="step-status">Waiting...</span>
+                        </div>
+                    </div>
+                    <div class="progress-step" id="step3">
+                        <div class="step-indicator">
+                            <div class="step-dot"></div>
+                        </div>
+                        <div class="step-info">
+                            <span class="step-name">Customer Insights Researcher</span>
+                            <span class="step-status">Waiting...</span>
+                        </div>
+                    </div>
+                    <div class="progress-step" id="step4">
+                        <div class="step-indicator">
+                            <div class="step-dot"></div>
+                        </div>
+                        <div class="step-info">
+                            <span class="step-name">Product Strategy Advisor</span>
+                            <span class="step-status">Waiting...</span>
+                        </div>
+                    </div>
+                    <div class="progress-step" id="step5">
+                        <div class="step-indicator">
+                            <div class="step-dot"></div>
+                        </div>
+                        <div class="step-info">
+                            <span class="step-name">Business Analyst & Synthesizer</span>
+                            <span class="step-status">Waiting...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="loading-note">This may take several minutes as each agent performs deep research and analysis.
+                </p>
+            </div>
+        </section>
+
+        <!-- ==================== RESULT SECTION ==================== -->
+        <section class="section hidden" id="resultSection">
+            <div class="result-header">
+                <div class="result-meta">
+                    <span class="result-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        Report Generated
+                    </span>
+                    <span class="result-date" id="resultDate"></span>
+                </div>
+                <h2 class="result-title">Market Research Report</h2>
+                <div class="result-idea" id="resultIdea"></div>
+
+                <div class="result-actions">
+                    <button class="btn-secondary" onclick="copyReport()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span id="copyBtnText">Copy to Clipboard</span>
+                    </button>
+                    <button class="btn-secondary" id="downloadBtn" onclick="downloadReport()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download .md
+                    </button>
+                    <button class="btn-secondary" id="downloadBtnPdf" onclick="downloadReportPdf()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download .pdf
+                    </button>
+                    <button class="btn-primary" onclick="newReport()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        New Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="report-content" id="reportContent">
+                <!-- Rendered markdown report goes here -->
+            </div>
+        </section>
+
+        <!-- ==================== HISTORY SECTION ==================== -->
+        <section class="section hidden" id="historySection">
+            <div class="history-header">
+                <h2 class="section-title">Past Reports</h2>
+                <p class="section-subtitle">Browse your previously generated market research reports</p>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="empty-state" id="emptyHistory">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <p>No reports generated yet. Create your first one!</p>
+                    <button class="btn-primary" onclick="showSection('input')">Get Started</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ERROR SECTION ==================== -->
+        <section class="section hidden" id="errorSection">
+            <div class="error-container">
+                <div class="error-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h2>Something went wrong</h2>
+                <p class="error-message" id="errorMessage">An unexpected error occurred while running the AI agents.</p>
+                <button class="btn-primary" onclick="showSection('input')">Try Again</button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Built with <span class="heart">♥</span> using Flask & CrewAI</p>
+        </footer>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>
