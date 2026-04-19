@@ -2,8 +2,7 @@
 
 > Transform any product idea into a comprehensive market research report — powered by a multi-agent AI pipeline.
 
-<!-- 🔗 DEPLOYMENT URL — uncomment and replace after deploying -->
-<!-- **🌐 Live Demo:** [https://your-deployed-url.onrender.com](https://your-deployed-url.onrender.com) -->
+**🌐 Live Demo:** [https://marketresearchmultiagentai-production.up.railway.app](https://marketresearchmultiagentai-production.up.railway.app/)
 
 ---
 
@@ -98,7 +97,6 @@ OPENAI_API_KEY=your_openai_key_here
 market_research_crew/
 ├── app.py                          # Flask web server
 ├── pyproject.toml                  # Project config & dependencies
-├── requirements.txt                # Pip-compatible dependencies
 ├── .env                            # API keys (not committed)
 │
 ├── src/market_research_crew/
@@ -136,31 +134,37 @@ market_research_crew/
 
 ## 📦 Deployment
 
-This app is deployment-ready for platforms like **Render**, **Railway**, or **Heroku**.
+This app is deployed on **Railway** and is live at:
 
-<!-- ✅ After deploying, uncomment and update the line below -->
-<!-- **🌐 Live URL:** [https://your-deployed-url.onrender.com](https://your-deployed-url.onrender.com) -->
+> 🔗 **[https://marketresearchmultiagentai-production.up.railway.app](https://marketresearchmultiagentai-production.up.railway.app/)**
 
-### Deploy to Render
+### Deploy to Railway
 
 1. Push your code to GitHub
-2. Create a new **Web Service** on [Render](https://render.com)
-3. Set the **Build Command**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Set the **Start Command**:
+2. Create a new project on [Railway](https://railway.com) and connect your GitHub repo
+3. Set the **Start Command**:
    ```bash
    gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 600
    ```
-   > **Note:** The `--timeout 600` flag is important because CrewAI report generation can take several minutes per request.
-5. Add your environment variables in the Render dashboard:
+4. Add your environment variables in the Railway dashboard:
    - `OPENAI_API_KEY`
    - `SERPER_API_KEY`
    - `MODEL`
-6. Deploy 🚀
+5. Deploy 🚀
 
-> **Why gunicorn?** Flask is a WSGI application, so it requires a WSGI-compatible production server like [gunicorn](https://gunicorn.org/). Uvicorn is for ASGI frameworks (FastAPI, Starlette) and won't work with Flask.
+### Deploy to Render (Alternative)
+
+1. Create a new **Web Service** on [Render](https://render.com)
+2. Set the **Build Command**: `pip install -r requirements.txt`
+3. Set the **Start Command**:
+   ```bash
+   gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 600
+   ```
+4. Add your environment variables and deploy
+
+> **Note:** The `--timeout 600` flag is important because CrewAI report generation can take several minutes per request.
+>
+> **Why gunicorn?** Flask is a WSGI app and needs a WSGI server like [gunicorn](https://gunicorn.org/) in production.
 
 ---
 
