@@ -80,11 +80,11 @@ Create a `.env` file in the project root with the following keys:
 |----------|-------------|----------|
 | `OPENAI_API_KEY` | OpenAI API key (used by the AI agents) | ✅ |
 | `SERPER_API_KEY` | [Serper.dev](https://serper.dev) API key for web search | ✅ |
-| `MODEL` | LLM model name (e.g. `gpt-4o`, `gpt-4o-mini`) | ✅ |
+| `MODEL` | LLM model name (e.g. `gpt-5-nano-2025-08-07`) | ✅ |
 | `GOOGLE_API_KEY` | Google AI API key (optional, if using Gemini models) | ❌ |
 
 ```env
-MODEL=gpt-4o
+MODEL=gpt-5-nano-2025-08-07
 SERPER_API_KEY=your_serper_key_here
 OPENAI_API_KEY=your_openai_key_here
 ```
@@ -124,7 +124,7 @@ market_research_crew/
 | Layer | Technology |
 |-------|------------|
 | **AI Framework** | [CrewAI](https://crewai.com) — Multi-agent orchestration |
-| **LLM** | OpenAI GPT models (configurable) |
+| **LLM** | OpenAI GPT-5 Nano (configurable) |
 | **Web Search** | [Serper.dev](https://serper.dev) API |
 | **Backend** | Flask (Python) |
 | **Frontend** | HTML, CSS, JavaScript |
